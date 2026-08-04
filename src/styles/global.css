@@ -107,3 +107,46 @@ a:hover, a:focus-visible {
   }
   a:hover, a:focus-visible { background-size: 100% 1px, 100% 1px; }
 }
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 var(--space-s);
+  padding: var(--space-s) 0;
+  border-top: 1px solid var(--rule);
+  background-image: none;
+  position: relative;
+}
+.row__title { font-family: var(--font-display); font-size: var(--step-1); }
+.row__tagline { grid-column: 1; color: var(--ink-muted); font-size: var(--step--1); }
+.row__year { grid-row: 1; color: var(--ink-muted); font-size: var(--step--1); }
+.row:hover .row__title,
+.row:focus-visible .row__title { color: var(--accent); }
+
+.row::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1px;
+  width: 100%;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .row { transition: transform 220ms ease; }
+  .row:hover, .row:focus-visible { transform: translateX(4px); }
+  .row::after {
+    width: 0;
+    transition: width 260ms ease;
+  }
+  .row:hover::after, .row:focus-visible::after { width: 100%; }
+}
+
+.work { padding: var(--space-s) 0; border-top: 1px solid var(--rule); }
+.work__head { display: flex; justify-content: space-between; gap: var(--space-s); }
+.work__dates, .work__role { color: var(--ink-muted); font-size: var(--step--1); }
+
+.intro p { font-size: var(--step-1); }
+.accent { color: var(--accent); font-style: normal; }
+
+.contact { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-s) var(--space-m); }
