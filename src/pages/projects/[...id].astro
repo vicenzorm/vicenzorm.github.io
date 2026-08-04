@@ -14,7 +14,7 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const { title, tagline, role, year, stack, summary, metrics, links } = project.data;
 ---
-<Base title={`${title} — Vicenzo Ribas Másera`} description={summary}>
+<Base title={`${title} — Vicenzo Ribas Másera`} description={summary} type="article">
   <p class="back"><a href="/">← Vicenzo Ribas Másera</a></p>
 
   <header class="case">

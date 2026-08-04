@@ -1,0 +1,50 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  type?: 'website' | 'article';
+}
+const { title, description, type = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Vicenzo Ribas Másera',
+  url: 'https://vicenzorm.github.io/',
+  jobTitle: 'iOS Engineer',
+  email: 'mailto:vicenzomasera@icloud.com',
+  sameAs: [
+    'https://github.com/vicenzorm',
+    'https://linkedin.com/in/vicenzomasera',
+  ],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Pontifical Catholic University of Rio Grande do Sul',
+  },
+  knowsAbout: [
+    'Swift', 'SwiftUI', 'UIKit', 'The Composable Architecture',
+    'Swift Concurrency', 'CoreML', 'HealthKit', 'SwiftData',
+    'App Intents', 'WidgetKit', 'SpriteKit', 'iOS development',
+    'macOS development',
+  ],
+};
+
+const shiro = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Shiro',
+  applicationCategory: 'GameApplication',
+  operatingSystem: 'iOS',
+  url: 'https://apps.apple.com/br/app/shiro/id6752502968',
+  author: { '@type': 'Person', name: 'Vicenzo Ribas Másera' },
+};
+---
+<link rel="canonical" href={canonical} />
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json" set:html={JSON.stringify(person)} />
+<script type="application/ld+json" set:html={JSON.stringify(shiro)} />
