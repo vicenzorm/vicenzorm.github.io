@@ -30,7 +30,7 @@ These are explicitly out of scope for v1. They are recorded so they are not re-l
 
 ## Architecture
 
-Astro 5 with `output: 'static'`. Static HTML is emitted at build time; no JavaScript framework ships to the browser.
+Astro 7 with static output. Static HTML is emitted at build time; no JavaScript framework ships to the browser.
 
 ### Surfaces
 
@@ -68,7 +68,7 @@ Each has one purpose, takes at most three props, and can be understood without r
 - `Intro` — prose block, no props, content inline. The voice lives here.
 - `WorkEntry` — org, role, dates, 2-3 lines. Used for Apple Developer Academy and PUCRS.
 - `ProjectRow` — title, tagline, year, href. The hover interaction lives here.
-- `CaseStudy` — layout for `/projects/[slug]`; renders frontmatter header plus Markdown body.
+- The case study layout — frontmatter header plus rendered Markdown body — lives directly in the `/projects/[...id]` route file. It has exactly one caller, so extracting it into a component would add indirection without adding a boundary.
 - `Contact` — email, GitHub, LinkedIn, resume PDF.
 - `Seo` — meta tags, OG, and JSON-LD. The only component that knows about structured data.
 
@@ -80,7 +80,7 @@ Deployment is GitHub Actions using the first-party `withastro/action`, triggered
 
 ### Dependencies
 
-Deliberately minimal. `astro`, `@astrojs/sitemap`, and the two self-hosted font families. Nothing else without a new decision.
+Deliberately minimal and pinned: `astro@7.1.6`, `@astrojs/sitemap@3.7.3`, `@fontsource-variable/inter@5.3.0`, `@fontsource/instrument-serif@5.3.0`. Nothing else without a new decision.
 
 ## Visual system
 
@@ -110,7 +110,7 @@ The accent appears in exactly three places: link underlines, one highlighted phr
 ### Typography
 
 - Headings: **Instrument Serif**. Body and UI: **Inter**.
-- Both self-hosted as subset `woff2` in `public/fonts/`, preloaded, with `font-display: swap`. No Google Fonts request — it is a third-party round trip and a privacy leak for zero benefit.
+- Both self-hosted via Fontsource (`@fontsource-variable/inter`, `@fontsource/instrument-serif`), which vendors subset `woff2` files into the build. No Google Fonts request — it is a third-party round trip and a privacy leak for zero benefit.
 - Fluid scale via `clamp()` against viewport width. No breakpoint-triggered size jumps.
 - Measure capped at `68ch`. Body leading `1.6`, heading leading `1.15`.
 
