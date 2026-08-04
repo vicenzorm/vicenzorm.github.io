@@ -18,7 +18,7 @@ Most side projects never leave a simulator. Shiro was the opposite goal: take an
 
 ## What I built
 
-I worked on the iOS build using SpriteKit for the game world and GameplayKit for the underlying game logic. On top of that, I wired up GameKit to bring in Game Center, so the game ships with real leaderboards and achievements.
+The iOS build uses SpriteKit and GameplayKit for the game world and its logic. On top of that, I wired up GameKit to bring in Game Center, so the game ships with real leaderboards and achievements.
 
 ## Decisions that mattered
 

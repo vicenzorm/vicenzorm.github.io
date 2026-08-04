@@ -31,4 +31,4 @@ MVVM-C with a protocol-bounded domain layer was the architecture choice that let
 
 ## What shipped
 
-A solo-built iOS app that reads real HealthKit walking data, scores it against your own history rather than a population average, and returns a result in under 2 seconds with zero network calls involved.
+A solo-built iOS app that reads real HealthKit walking data, scores it against your own history, and returns a result in under 2 seconds with zero network calls involved.

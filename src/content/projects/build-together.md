@@ -1,7 +1,7 @@
 ---
 title: Build Together
 tagline: Real-time team collaboration for retros and planning poker
-role: ~50-person squad organization
+role: Architect
 year: '2025'
 order: 2
 stack: [Swift, SwiftUI, The Composable Architecture, WebSockets, iOS, macOS]
@@ -9,7 +9,7 @@ summary: >-
   A cross-platform iOS and macOS collaboration tool built in raw TCA, with
   live WebSocket state sync, optimistic updates, and automatic reconnection.
 metrics:
-  - Cross-platform iOS + macOS from one codebase
+  - Cross-platform iOS + macOS
   - Live shared state across concurrent participants
 ---
 
@@ -21,7 +21,7 @@ Build Together is two collaboration tools in one app: an Easy Retro-style board 
 
 I architected the app in raw TCA (The Composable Architecture), which meant every piece of state and every side effect goes through explicit, testable reducers rather than being scattered across view models. On top of that I built the real-time layer: a WebSocket connection that pushes state changes to every participant live, applies optimistic updates so your own actions feel instant instead of waiting on a round trip, and reconnects automatically if the connection drops.
 
-The app runs on both iPhone and Mac from a single SwiftUI codebase, which matters for a tool people are going to have open during a meeting on whatever device is in front of them.
+The app runs on both iPhone and Mac, which matters for a tool people are going to have open during a meeting on whatever device is in front of them.
 
 ## Decisions that mattered
 

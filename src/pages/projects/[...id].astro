@@ -15,7 +15,7 @@ const { Content } = await render(project);
 const { title, tagline, role, year, stack, summary, metrics, links } = project.data;
 ---
 <Base title={`${title} — Vicenzo Ribas Másera`} description={summary} type="article" softwareApp={project.id === 'shiro'}>
-  <p class="back"><a href="/" aria-label="Back to home">← Vicenzo Ribas Másera</a></p>
+  <p class="back"><a href="/"><span aria-hidden="true">←</span> Back to Vicenzo Ribas Másera</a></p>
 
   <header class="case">
     <h1>{title}</h1>

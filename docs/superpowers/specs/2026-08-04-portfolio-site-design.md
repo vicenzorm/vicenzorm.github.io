@@ -105,7 +105,9 @@ Dark mode is a token swap under `prefers-color-scheme`, not a second stylesheet.
 
 `--ink` on `--surface` clears AAA in both themes by a wide margin. `--rule` is decorative and exempt.
 
-The accent appears in exactly three places: link underlines, one highlighted phrase in the intro, and the Shiro App Store link. Restraint is the point — a fourth use dilutes the other three.
+The accent appears in exactly two places: link interactive states (hover and focus underlines), and one highlighted phrase in the intro. Restraint is the point — a third use dilutes the other two.
+
+An earlier draft of this spec also gave the Shiro App Store link special accent treatment. That was dropped during implementation: it renders as an ordinary link, and the tighter two-place constraint is what shipped. The resting underline uses `--ink-muted` rather than `--rule`, because `--rule` at 1.31:1 against the surface is invisible as a link affordance — a distinction that matters most on touch devices, where there is no hover state to fall back on.
 
 ### Typography
 
