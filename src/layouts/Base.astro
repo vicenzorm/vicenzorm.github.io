@@ -6,9 +6,11 @@ interface Props {
   title: string;
   description: string;
   type?: 'website' | 'article';
+  softwareApp?: boolean;
+  noindex?: boolean;
 }
 
-const { title, description, type = 'website' } = Astro.props;
+const { title, description, type = 'website', softwareApp = false, noindex = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -17,7 +19,7 @@ const { title, description, type = 'website' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <Seo title={title} description={description} type={type} />
+    <Seo title={title} description={description} type={type} softwareApp={softwareApp} noindex={noindex} />
     <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
