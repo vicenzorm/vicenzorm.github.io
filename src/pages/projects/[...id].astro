@@ -15,7 +15,7 @@ const { Content } = await render(project);
 const { title, tagline, role, year, stack, summary, metrics, links } = project.data;
 ---
 <Base title={`${title} — Vicenzo Ribas Másera`} description={summary} type="article" softwareApp={project.id === 'shiro'}>
-  <p class="back"><a href="/">← Vicenzo Ribas Másera</a></p>
+  <p class="back"><a href="/" aria-label="Back to home">← Vicenzo Ribas Másera</a></p>
 
   <header class="case">
     <h1>{title}</h1>
@@ -25,7 +25,7 @@ const { title, tagline, role, year, stack, summary, metrics, links } = project.d
       <dt>Role</dt><dd>{role}</dd>
       <dt>Stack</dt><dd>{stack.join(', ')}</dd>
     </dl>
-    {metrics && (
+    {metrics && metrics.length > 0 && (
       <ul class="case__metrics">
         {metrics.map((m) => <li>{m}</li>)}
       </ul>

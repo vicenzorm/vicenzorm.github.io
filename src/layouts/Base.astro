@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import Seo from '../components/Seo.astro';
+import interWoff from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import serifWoff from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -17,10 +19,14 @@ const { title, description, type = 'website', softwareApp = false, noindex = fal
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FDFBF7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14120F" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <Seo title={title} description={description} type={type} softwareApp={softwareApp} noindex={noindex} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" as="font" type="font/woff2" href={interWoff} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={serifWoff} crossorigin />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

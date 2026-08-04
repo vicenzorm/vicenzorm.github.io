@@ -15,7 +15,7 @@ metrics:
 
 ## The problem
 
-Build Together is two collaboration tools in one app: an Easy Retro-style board for retrospectives and a planning poker tool for estimation. Both need the same thing underneath — several people looking at the same session at the same time, seeing each other's changes without refreshing, without stepping on each other, and without the app falling over when a connection drops.
+Build Together is two collaboration tools in one app: an Easy Retro-style board for retrospectives and a planning poker tool for estimation. Both need the same thing underneath — several people looking at the same session at the same time, seeing each other’s changes without refreshing, without stepping on each other, and without the app falling over when a connection drops.
 
 ## What I built
 
@@ -25,12 +25,12 @@ The app runs on both iPhone and Mac from a single SwiftUI codebase, which matter
 
 ## Decisions that mattered
 
-Retro boards and planning poker are both data-dense, multi-user UIs, and that's exactly the kind of surface where ad hoc state management turns into bugs no one can reproduce: too many pieces of state changing at once, coming from too many people, for informal wiring to stay correct. Raw TCA forces state changes through reducers, which is more ceremony upfront but means the sync logic between "what the server sent" and "what the UI shows" stays in one place instead of leaking into every view.
+Retro boards and planning poker are both data-dense, multi-user UIs, and that’s exactly the kind of surface where ad hoc state management turns into bugs no one can reproduce: too many pieces of state changing at once, coming from too many people, for informal wiring to stay correct. Raw TCA forces state changes through reducers, which is more ceremony upfront but means the sync logic between “what the server sent” and “what the UI shows” stays in one place instead of leaking into every view.
 
 Keeping WebSocket handling as a decoupled side effect rather than baking it into individual screens is what let optimistic updates and reconnection logic stay consistent across both the retro board and the poker flow, instead of being reimplemented twice.
 
-I built this alongside a roughly 50-person multidisciplinary squad, which meant the architecture also had to be legible to people who weren't the one who wrote it.
+I built this alongside a roughly 50-person multidisciplinary squad, which meant the architecture also had to be legible to people who weren’t the one who wrote it.
 
 ## What shipped
 
-A working cross-platform app where a room of people can run a retro or a planning poker session together, watch changes land live, and not notice when someone's WiFi hiccups and reconnects behind the scenes.
+A working cross-platform app where a room of people can run a retro or a planning poker session together, watch changes land live, and not notice when someone’s WiFi hiccups and reconnects behind the scenes.

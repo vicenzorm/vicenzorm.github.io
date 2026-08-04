@@ -1,7 +1,18 @@
 @import '@fontsource-variable/inter';
 @import '@fontsource/instrument-serif';
 
+/* Metric-matched fallback so the Inter Variable font swap doesn't reflow body text (CLS). */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  ascent-override: 90.44%;
+  descent-override: 22.52%;
+  line-gap-override: 0%;
+  size-adjust: 107.12%;
+}
+
 :root {
+  color-scheme: light dark;
   --surface: #FDFBF7;
   --ink: #1A1815;
   --ink-muted: #5C564E;
@@ -9,7 +20,7 @@
   --accent: #B4462A;
 
   --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-body: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter Variable', 'Inter Fallback', ui-sans-serif, system-ui, sans-serif;
 
   --column: 42rem;
   --measure: 68ch;
@@ -57,6 +68,7 @@ h1, h2, h3 {
   font-weight: 400;
   line-height: 1.15;
   margin: 0 0 var(--space-s);
+  text-wrap: balance;
 }
 
 h1 { font-size: var(--step-3); }
@@ -107,6 +119,8 @@ a:hover, a:focus-visible {
   }
   a:hover, a:focus-visible { background-size: 100% 1px, 100% 1px; }
 }
+
+.row-list { list-style: none; padding: 0; margin: 0; }
 
 .row {
   display: grid;

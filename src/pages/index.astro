@@ -28,14 +28,16 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
 
   <section>
     <h2>Projects</h2>
-    {projects.map((p) => (
-      <ProjectRow
-        title={p.data.title}
-        tagline={p.data.tagline}
-        year={p.data.year}
-        href={`/projects/${p.id}/`}
-      />
-    ))}
+    <ul class="row-list">
+      {projects.map((p) => (
+        <ProjectRow
+          title={p.data.title}
+          tagline={p.data.tagline}
+          year={p.data.year}
+          href={`/projects/${p.id}/`}
+        />
+      ))}
+    </ul>
   </section>
 
   <Contact />

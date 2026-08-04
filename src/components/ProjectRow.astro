@@ -7,8 +7,10 @@ interface Props {
 }
 const { title, tagline, year, href } = Astro.props;
 ---
-<a class="row" href={href}>
-  <span class="row__title">{title}</span>
-  <span class="row__tagline">{tagline}</span>
-  <span class="row__year">{year}</span>
-</a>
+<li>
+  <a class="row" href={href}>
+    <span class="row__title">{title}</span>
+    <span class="row__tagline">{tagline}</span>
+    <span class="row__year">{year}</span>
+  </a>
+</li>

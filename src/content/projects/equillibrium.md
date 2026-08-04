@@ -21,7 +21,7 @@ Your iPhone already collects walking metrics through HealthKit in the background
 
 ## What I built
 
-I structured the app in MVVM-C with a protocol-bounded domain layer, so the pieces that read HealthKit data, the pieces that score it, and the views that display it don't know about each other's implementation details. The core is a CoreML classifier trained to turn the five gait metrics into the Mobility Score, paired with Foundation Models to generate plain-language insights about what the score means day to day. App Intents and WidgetKit are in the stack too, for surfacing that score to the system beyond the app's own screens.
+I structured the app in MVVM-C with a protocol-bounded domain layer, so the pieces that read HealthKit data, the pieces that score it, and the views that display it don’t know about each other’s implementation details. The core is a CoreML classifier trained to turn the five gait metrics into the Mobility Score, paired with Foundation Models to generate plain-language insights about what the score means day to day. App Intents and WidgetKit surface that score to the system beyond the app's own screens.
 
 ## Decisions that mattered
 
