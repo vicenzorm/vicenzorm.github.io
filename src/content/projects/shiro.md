@@ -18,11 +18,11 @@ Most side projects never leave a simulator. Shiro was the opposite goal: take an
 
 ## What I built
 
-I worked on the iOS build using SpriteKit for the game world and GameplayKit for the underlying game logic. On top of that, I wired up GameKit to bring in Game Center, so the game ships with real leaderboards and achievements rather than a local high-score list that resets when you delete the app.
+I worked on the iOS build using SpriteKit for the game world and GameplayKit for the underlying game logic. On top of that, I wired up GameKit to bring in Game Center, so the game ships with real leaderboards and achievements.
 
 ## Decisions that mattered
 
-Arcade games live or die on feel, and SpriteKit gives you a scene graph and physics you can reason about directly, which matters when five people are touching the same codebase. Using GameKit for leaderboards and achievements instead of rolling a custom backend meant no server to run, no accounts to manage, and a system players already trust from other Apple games.
+Arcade games live or die on feel, and SpriteKit gives you a scene graph and physics you can reason about directly, which matters when five people are touching the same codebase. Using GameKit for leaderboards and achievements instead of rolling a custom backend meant no server to run and no accounts to manage.
 
 ## What shipped
 

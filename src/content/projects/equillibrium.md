@@ -17,15 +17,15 @@ metrics:
 
 ## The problem
 
-Your iPhone already collects walking metrics through HealthKit in the background: things like step length, walking speed, and asymmetry, without you doing anything. That data mostly sits there unused. Equillibrium takes five of those passively collected metrics and turns them into something a person can actually read: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it.
+Your iPhone already collects walking metrics through HealthKit in the background, without you doing anything. That data mostly sits there unused. Equillibrium takes five walking metrics HealthKit already tracks passively and turns them into something a person can actually read: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it.
 
 ## What I built
 
-I structured the app in MVVM-C with a protocol-bounded domain layer, so the pieces that read HealthKit data, the pieces that score it, and the views that display it don't know about each other's implementation details. The core is a CoreML classifier trained to turn the five gait metrics into the Mobility Score, paired with Foundation Models to generate plain-language insights about what the score means day to day. App Intents and WidgetKit let the score surface outside the app itself, as a widget or a Siri-accessible shortcut.
+I structured the app in MVVM-C with a protocol-bounded domain layer, so the pieces that read HealthKit data, the pieces that score it, and the views that display it don't know about each other's implementation details. The core is a CoreML classifier trained to turn the five gait metrics into the Mobility Score, paired with Foundation Models to generate plain-language insights about what the score means day to day. App Intents and WidgetKit are in the stack too, for surfacing that score to the system beyond the app's own screens.
 
 ## Decisions that mattered
 
-The whole pipeline runs on device: HealthKit read, CoreML inference, Foundation Models generation, no network call anywhere in the loop. That was a deliberate constraint, not a fallback — gait and health data is personal, and the fewer places it travels, the better. It also forced the classifier to be small: it comes in under 1MB and infers in under 50ms, which is what makes running it locally on every app open practical instead of theoretical.
+The whole pipeline runs on device: HealthKit read, CoreML inference, Foundation Models generation, no network call anywhere in the loop. That was a deliberate constraint, not a fallback — gait and health data is personal, and the fewer places it travels, the better. It also forced the classifier to be small: it comes in under 1MB and infers in under 50ms, which is what keeps the whole daily scoring pipeline fast enough to run locally, delivering results in under 2 seconds instead of leaving the device for a slower round trip.
 
 MVVM-C with a protocol-bounded domain layer was the architecture choice that let the ML side change without touching the view layer, since the domain layer only knows about interfaces, not concrete HealthKit or CoreML types.
 

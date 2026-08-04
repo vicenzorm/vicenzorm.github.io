@@ -25,7 +25,7 @@ The app runs on both iPhone and Mac from a single SwiftUI codebase, which matter
 
 ## Decisions that mattered
 
-Retro boards and planning poker are both data-dense, multi-user UIs — cards moving, votes coming in, cursors updating — and that's exactly the kind of surface where ad hoc state management turns into bugs no one can reproduce. Raw TCA forces state changes through reducers, which is more ceremony upfront but means the sync logic between "what the server sent" and "what the UI shows" stays in one place instead of leaking into every view.
+Retro boards and planning poker are both data-dense, multi-user UIs, and that's exactly the kind of surface where ad hoc state management turns into bugs no one can reproduce: too many pieces of state changing at once, coming from too many people, for informal wiring to stay correct. Raw TCA forces state changes through reducers, which is more ceremony upfront but means the sync logic between "what the server sent" and "what the UI shows" stays in one place instead of leaking into every view.
 
 Keeping WebSocket handling as a decoupled side effect rather than baking it into individual screens is what let optimistic updates and reconnection logic stay consistent across both the retro board and the poker flow, instead of being reimplemented twice.
 
