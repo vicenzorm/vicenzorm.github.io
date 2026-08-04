@@ -152,3 +152,20 @@ a:hover, a:focus-visible {
 .accent { color: var(--accent); font-style: normal; }
 
 .contact { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-s) var(--space-m); }
+
+.back { font-size: var(--step--1); margin-bottom: var(--space-l); }
+.case { border-bottom: 1px solid var(--rule); padding-bottom: var(--space-m); margin-bottom: var(--space-m); }
+.case__tagline { color: var(--ink-muted); font-size: var(--step-1); }
+.case__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-xs) var(--space-s);
+  font-size: var(--step--1);
+  margin: var(--space-m) 0 0;
+}
+.case__meta dt { color: var(--ink-muted); }
+.case__meta dd { margin: 0; }
+.case__metrics { padding-left: 1.1em; font-size: var(--step--1); color: var(--ink-muted); }
+.prose h2 { margin-top: var(--space-l); font-size: var(--step-2); }
+.prose h3 { margin-top: var(--space-m); }
+.prose > * + * { margin-top: var(--space-s); }
