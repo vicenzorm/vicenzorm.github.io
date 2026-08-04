@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'About' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+// Case studies live under /projects/<slug>/ and keep Projects marked as current.
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+<nav class="nav" aria-label="Primary">
+  <ul>
+    {links.map(({ href, label }) => (
+      <li>
+        <a href={href} aria-current={isCurrent(href) ? 'page' : undefined}>{label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>

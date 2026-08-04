@@ -8,12 +8,13 @@ interface Props {
 }
 const { title, description, type = 'website', softwareApp = false, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const siteUrl = new URL('/', canonical).href;
 
 const person = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Vicenzo Ribas Másera',
-  url: Astro.site.href,
+  url: siteUrl,
   jobTitle: 'iOS Engineer',
   email: 'vicenzomasera@icloud.com',
   sameAs: [
