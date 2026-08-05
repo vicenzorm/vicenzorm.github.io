@@ -7,8 +7,8 @@
   --ink: #2E2C2A;
   --ink-muted: #5C564E;
   --rule: #E6E3DD;
-  --accent: #3366CC;
-  --accent-warm: #C0392B;
+  /* Rubrication red: this type came off two-colour presses, black and red. */
+  --accent: #A8322A;
 
   --font-display: 'IM Fell DW Pica', Georgia, serif;
   --font-body: 'IM Fell English', Georgia, serif;
@@ -36,8 +36,7 @@
     --ink: #E9E6E0;
     --ink-muted: #A39C91;
     --rule: #2B2721;
-    --accent: #8FB0F0;
-    --accent-warm: #E88070;
+    --accent: #E88070;
   }
 }
 
@@ -130,6 +129,7 @@ a:hover, a:focus-visible {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-xs) var(--space-m);
 }
 .nav li { max-width: none; }
@@ -147,7 +147,7 @@ a:hover, a:focus-visible {
   color: var(--ink-muted);
 }
 
-.accent { color: var(--accent-warm); }
+.accent { color: var(--accent); }
 
 /* Project rows */
 .row-list { list-style: none; padding: 0; margin: 0; }
@@ -209,3 +209,27 @@ a:hover, a:focus-visible {
 .prose code { font-family: ui-monospace, monospace; font-size: 0.9em; background: var(--rule); padding: 0.15em 0.35em; }
 .prose pre { font-family: ui-monospace, monospace; font-size: 0.9em; background: var(--rule); padding: var(--space-s); overflow-x: auto; }
 .prose pre code { background: none; padding: 0; }
+
+/* Case-study pager — sits between the article and the primary nav. */
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-m);
+  margin-top: var(--space-l);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--rule);
+}
+.pager__link, .pager__link:hover, .pager__link:focus-visible {
+  display: grid;
+  gap: 0.1em;
+  background-image: none;
+}
+.pager__link--next { margin-inline-start: auto; text-align: right; }
+.pager__label { font-size: var(--step--1); color: var(--ink-muted); }
+.pager__title { font-family: var(--font-display); font-size: var(--step-1); }
+.pager__link:hover .pager__title,
+.pager__link:focus-visible .pager__title { color: var(--accent); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pager__title { transition: color 220ms ease; }
+}

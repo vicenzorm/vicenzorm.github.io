@@ -3,10 +3,10 @@ interface Props {
   title: string;
   description: string;
   type?: 'website' | 'article';
-  softwareApp?: boolean;
+  appIds?: string[];
   noindex?: boolean;
 }
-const { title, description, type = 'website', softwareApp = false, noindex = false } = Astro.props;
+const { title, description, type = 'website', appIds = [], noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const siteUrl = new URL('/', canonical).href;
 
@@ -35,8 +35,9 @@ const person = {
 
 const contributor = { '@type': 'Person', name: 'Vicenzo Ribas Másera' };
 
-const apps = [
-  {
+// Keyed by content-collection id, so a page only emits schema for its own app.
+const apps: Record<string, object> = {
+  shiro: {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Shiro',
@@ -45,7 +46,7 @@ const apps = [
     url: 'https://apps.apple.com/br/app/shiro/id6752502968',
     contributor,
   },
-  {
+  'every-minute': {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Every Minute',
@@ -54,7 +55,9 @@ const apps = [
     url: 'https://apps.apple.com/us/app/every-minute/id6789366168',
     contributor,
   },
-];
+};
+
+const pageApps = appIds.map((id) => apps[id]).filter(Boolean);
 ---
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex" />}
@@ -64,4 +67,4 @@ const apps = [
 <meta property="og:url" content={canonical} />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json" set:html={JSON.stringify(person)} />
-{softwareApp && <script type="application/ld+json" set:html={JSON.stringify(apps)} />}
+{pageApps.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(pageApps)} />}

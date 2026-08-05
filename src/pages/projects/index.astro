@@ -10,7 +10,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   title="Projects — Vicenzo Ribas Másera"
   description="Native Apple products shipped end to end: two App Store titles including a visionOS immersive experience, a real-time collaboration tool, and an on-device mobility companion."
   heading="Projects"
-  softwareApp
+  appIds={projects.filter((p) => p.data.links.appStore).map((p) => p.id)}
 >
   <ul class="row-list">
     {projects.map((p) => (

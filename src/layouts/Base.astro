@@ -10,11 +10,11 @@ interface Props {
   description: string;
   heading: string;
   type?: 'website' | 'article';
-  softwareApp?: boolean;
+  appIds?: string[];
   noindex?: boolean;
 }
 
-const { title, description, heading, type = 'website', softwareApp = false, noindex = false } = Astro.props;
+const { title, description, heading, type = 'website', appIds = [], noindex = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -25,7 +25,10 @@ const { title, description, heading, type = 'website', softwareApp = false, noin
     <meta name="theme-color" content="#171614" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <Seo title={title} description={description} type={type} softwareApp={softwareApp} noindex={noindex} />
+    <Seo title={title} description={description} type={type} appIds={appIds} noindex={noindex} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="preload" as="font" type="font/woff2" href={displayWoff} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={bodyWoff} crossorigin />

@@ -3,18 +3,19 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects', ({ data }) => !data.draft);
-  return projects.map((project) => ({
+  const projects = (await getCollection('projects', ({ data }) => !data.draft))
+    .sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, i) => ({
     params: { id: project.id },
-    props: { project },
+    props: { project, prev: projects[i - 1], next: projects[i + 1] },
   }));
 }
 
-const { project } = Astro.props;
+const { project, prev, next } = Astro.props;
 const { Content } = await render(project);
 const { title, tagline, role, year, stack, summary, metrics, links } = project.data;
 ---
-<Base title={`${title} — Vicenzo Ribas Másera`} description={summary} heading={title} type="article" softwareApp={project.id === 'shiro'}>
+<Base title={`${title} — Vicenzo Ribas Másera`} description={summary} heading={title} type="article" appIds={links.appStore ? [project.id] : []}>
   <header class="case">
     <p class="case__tagline">{tagline}</p>
     <dl class="case__meta">
@@ -34,4 +35,19 @@ const { title, tagline, role, year, stack, summary, metrics, links } = project.d
   <article class="prose">
     <Content />
   </article>
+
+  <nav class="pager" aria-label="Case studies">
+    {prev && (
+      <a class="pager__link" href={`/projects/${prev.id}/`} rel="prev">
+        <span class="pager__label">Previous</span>
+        <span class="pager__title">{prev.data.title}</span>
+      </a>
+    )}
+    {next && (
+      <a class="pager__link pager__link--next" href={`/projects/${next.id}/`} rel="next">
+        <span class="pager__label">Next</span>
+        <span class="pager__title">{next.data.title}</span>
+      </a>
+    )}
+  </nav>
 </Base>
