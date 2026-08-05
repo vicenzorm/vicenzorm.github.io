@@ -65,6 +65,10 @@ const pageApps = appIds.map((id) => apps[id]).filter(Boolean);
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content={new URL('/og.png', siteUrl).href} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Vicenzo Ribas Másera — iOS developer" />
+<meta name="twitter:card" content="summary_large_image" />
 <script type="application/ld+json" set:html={JSON.stringify(person)} />
 {pageApps.length > 0 && <script type="application/ld+json" set:html={JSON.stringify(pageApps)} />}
