@@ -1,6 +1,6 @@
 ---
 title: Equillibrium
-tagline: An on-device walking and mobility companion
+tagline: A walking companion whose data never leaves the phone
 role: Solo
 year: '2026'
 order: 3
@@ -25,9 +25,11 @@ I structured the app in MVVM-C with a protocol-bounded domain layer, so the piec
 
 ## Decisions that mattered
 
-The whole pipeline runs on device: HealthKit read, CoreML inference, Foundation Models generation, no network call anywhere in the loop. That was a deliberate constraint, not a fallback — gait and health data is personal, and the fewer places it travels, the better. It also forced the classifier to be small: it comes in under 1MB and infers in under 50ms, which is what keeps the whole daily scoring pipeline fast enough to run locally, delivering results in under 2 seconds instead of leaving the device for a slower round trip.
+Nothing leaves the phone. HealthKit read, CoreML inference, Foundation Models generation — no network call anywhere in the loop. That was a constraint I set at the start rather than a fallback I settled for: gait data is a physical signature, and the fewer places it travels, the better.
 
-MVVM-C with a protocol-bounded domain layer was the architecture choice that let the ML side change without touching the view layer, since the domain layer only knows about interfaces, not concrete HealthKit or CoreML types.
+The constraint paid for itself. Ruling out server-side inference forced the classifier to stay small — under 1MB, under 50ms — which is exactly what makes the daily score land in under two seconds instead of waiting on a round trip. The private version is also the fast one.
+
+The protocol-bounded domain layer is what kept that tractable. Because the domain only knows about interfaces, not concrete HealthKit or CoreML types, I could swap classifier versions and rework the scoring math without touching a single view.
 
 ## What shipped
 

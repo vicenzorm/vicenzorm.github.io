@@ -14,16 +14,18 @@ links:
 
 ## The problem
 
-Most side projects never leave a simulator. Shiro was the opposite goal: take an arcade game all the way from an idea to something sitting on the actual App Store, with five people working on it at once and a real submission process at the end.
+Most side projects never leave the simulator. Shiro had the opposite goal from day one: get an arcade game all the way onto the App Store — five people on the codebase, a real review process at the end, and a shipping date that didn't move.
 
 ## What I built
 
-The iOS build uses SpriteKit and GameplayKit for the game world and its logic. On top of that, I wired up GameKit to bring in Game Center, so the game ships with real leaderboards and achievements.
+The game world and its logic run on SpriteKit and GameplayKit. On top of that I wired up GameKit, so Shiro shipped with working Game Center leaderboards and achievements rather than the placeholder versions that usually get cut before submission.
 
 ## Decisions that mattered
 
-Arcade games live or die on feel, and SpriteKit gives you a scene graph and physics you can reason about directly, which matters when five people are touching the same codebase. Using GameKit for leaderboards and achievements instead of rolling a custom backend meant no server to run and no accounts to manage.
+Arcade games live or die on feel, and SpriteKit gives you a scene graph and physics you can reason about directly — which matters a lot when five people are pushing to the same repo and every one of them needs to predict what a change will do to the game's timing.
+
+Using GameKit for leaderboards and achievements instead of rolling our own backend was the choice that made shipping realistic. No server to run, no accounts to manage, no privacy surface to defend in review. On a team that size with a fixed deadline, the feature you don't have to operate is worth more than the one you control.
 
 ## What shipped
 
-Shiro is live on the App Store today, achievements and leaderboards included. Getting a game through App Store submission as part of a small team, from first prototype to an approved listing, was the actual deliverable here.
+Shiro is live on the App Store today, achievements and leaderboards included. The game was the artifact; getting it from first prototype to an approved listing with five people was the actual deliverable.

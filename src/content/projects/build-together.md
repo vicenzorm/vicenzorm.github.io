@@ -17,6 +17,8 @@ metrics:
 
 Build Together is two collaboration tools in one app: an Easy Retro-style board for retrospectives and a planning poker tool for estimation. Both need the same thing underneath — several people looking at the same session at the same time, seeing each other’s changes without refreshing, without stepping on each other, and without the app falling over when a connection drops.
 
+The wrinkle was the audience. This was built for a roughly 50-person multidisciplinary squad, which meant the architecture had to be legible to people who hadn’t written it and wouldn’t be around when it broke.
+
 ## What I built
 
 I architected the app in raw TCA (The Composable Architecture), which meant every piece of state and every side effect goes through explicit, testable reducers rather than being scattered across view models. On top of that I built the real-time layer: a WebSocket connection that pushes state changes to every participant live, applies optimistic updates so your own actions feel instant instead of waiting on a round trip, and reconnects automatically if the connection drops.
@@ -25,11 +27,9 @@ The app runs on both iPhone and Mac, which matters for a tool people are going t
 
 ## Decisions that mattered
 
-Retro boards and planning poker are both data-dense, multi-user UIs, and that’s exactly the kind of surface where ad hoc state management turns into bugs no one can reproduce: too many pieces of state changing at once, coming from too many people, for informal wiring to stay correct. Raw TCA forces state changes through reducers, which is more ceremony upfront but means the sync logic between “what the server sent” and “what the UI shows” stays in one place instead of leaking into every view.
+Retro boards and planning poker are data-dense multi-user UIs, which is precisely where ad hoc state management produces bugs nobody can reproduce — too much state changing at once, from too many people, for informal wiring to stay correct. Raw TCA is more ceremony upfront, but it keeps the reconciliation between what the server sent and what the UI shows in one auditable place instead of leaking into every view.
 
-Keeping WebSocket handling as a decoupled side effect rather than baking it into individual screens is what let optimistic updates and reconnection logic stay consistent across both the retro board and the poker flow, instead of being reimplemented twice.
-
-I built this alongside a roughly 50-person multidisciplinary squad, which meant the architecture also had to be legible to people who weren’t the one who wrote it.
+Treating the WebSocket as a decoupled side effect rather than baking it into screens is what let optimistic updates and reconnection stay consistent across both the retro board and the poker flow, instead of being implemented twice and drifting apart.
 
 ## What shipped
 
