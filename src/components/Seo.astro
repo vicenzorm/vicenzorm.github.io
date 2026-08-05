@@ -33,15 +33,28 @@ const person = {
   ],
 };
 
-const shiro = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'Shiro',
-  applicationCategory: 'GameApplication',
-  operatingSystem: 'iOS',
-  url: 'https://apps.apple.com/br/app/shiro/id6752502968',
-  contributor: { '@type': 'Person', name: 'Vicenzo Ribas Másera' },
-};
+const contributor = { '@type': 'Person', name: 'Vicenzo Ribas Másera' };
+
+const apps = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Shiro',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'iOS',
+    url: 'https://apps.apple.com/br/app/shiro/id6752502968',
+    contributor,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Every Minute',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'visionOS',
+    url: 'https://apps.apple.com/us/app/every-minute/id6789366168',
+    contributor,
+  },
+];
 ---
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex" />}
@@ -51,4 +64,4 @@ const shiro = {
 <meta property="og:url" content={canonical} />
 <meta name="twitter:card" content="summary" />
 <script type="application/ld+json" set:html={JSON.stringify(person)} />
-{softwareApp && <script type="application/ld+json" set:html={JSON.stringify(shiro)} />}
+{softwareApp && <script type="application/ld+json" set:html={JSON.stringify(apps)} />}

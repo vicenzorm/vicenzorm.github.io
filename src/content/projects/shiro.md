@@ -1,31 +1,38 @@
 ---
 title: Shiro
-tagline: An arcade game, live on the App Store
-role: 5-person team
+tagline: An arcade climber, live on the App Store
+role: Developer · 5-person team
 year: '2025'
 order: 1
 stack: [Swift, SpriteKit, GameplayKit, GameKit, Game Center]
 summary: >-
-  A complete iOS arcade game taken from concept to App Store launch with a
-  five-person team, with Game Center leaderboards and achievements.
+  An endless-climb arcade game built by five people and taken all the way
+  to an approved App Store listing in a month, with Game Center
+  leaderboards and achievements.
+metrics:
+  - 100+ downloads on the App Store
+  - One month from concept to approved listing
+  - Game Center leaderboards and achievements at launch
 links:
   appStore: https://apps.apple.com/br/app/shiro/id6752502968
 ---
 
 ## The problem
 
-Most side projects never leave the simulator. Shiro had the opposite goal from day one: get an arcade game all the way onto the App Store — five people on the codebase, a real review process at the end, and a shipping date that didn't move.
+Shiro is an endless runner that runs the wrong way. Instead of scrolling sideways, you climb — bottom of the screen to the top, dashing through falling wood logs and spiked ice balls, going until something hits you. The whole game lives in one input and how well you time it.
+
+Most games like it never leave the simulator. Shiro had the opposite goal from the first week: five people, one month, and a real App Store review at the end of it.
 
 ## What I built
 
-The game world and its logic run on SpriteKit and GameplayKit. On top of that I wired up GameKit, so Shiro shipped with working Game Center leaderboards and achievements rather than the placeholder versions that usually get cut before submission.
+The game world and its logic run on SpriteKit and GameplayKit — scene graph, physics, and collision for the climb, the obstacles, and the dash. On top of that I wired up GameKit, so Shiro shipped with working Game Center leaderboards and achievements rather than the stubbed versions that usually get cut in the last week before submission.
 
 ## Decisions that mattered
 
-Arcade games live or die on feel, and SpriteKit gives you a scene graph and physics you can reason about directly — which matters a lot when five people are pushing to the same repo and every one of them needs to predict what a change will do to the game's timing.
+Arcade games live or die on feel. In a climber where the only verb is a timed dash, a few frames of drift between what the player sees and when the collision registers is the difference between a fair death and a cheap one. SpriteKit gives you a scene graph and physics you can reason about directly, which matters when five people are pushing to the same repo and every one of them needs to predict what their change does to that timing.
 
-Using GameKit for leaderboards and achievements instead of rolling our own backend was the choice that made shipping realistic. No server to run, no accounts to manage, no privacy surface to defend in review. On a team that size with a fixed deadline, the feature you don't have to operate is worth more than the one you control.
+Using GameKit for leaderboards and achievements instead of rolling our own backend was the choice that made the deadline survivable. No server to run, no accounts to manage, no privacy surface to defend in review. On a five-person team with a month, the feature you don't have to operate is worth more than the one you control.
 
 ## What shipped
 
-Shiro is live on the App Store today, achievements and leaderboards included. The game was the artifact; getting it from first prototype to an approved listing with five people was the actual deliverable.
+Shiro is live on the App Store with 100+ downloads, achievements and leaderboards included. The game was the artifact; getting it from first prototype to an approved listing in a month, with five people, was the actual deliverable.
