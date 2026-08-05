@@ -25,13 +25,13 @@ Most games like it never leave the simulator. Shiro had the opposite goal from t
 
 ## What I built
 
-The game world and its logic run on SpriteKit and GameplayKit — scene graph, physics, and collision for the climb, the obstacles, and the dash. On top of that I wired up GameKit, so Shiro shipped with working Game Center leaderboards and achievements rather than the stubbed versions that usually get cut in the last week before submission.
+The game itself runs on SpriteKit and GameplayKit — the climb, the falling obstacles, and the collisions that end your run. On top of that I wired up Game Center, so Shiro shipped with working leaderboards and achievements instead of the stubbed versions that usually get cut in the last week before submission.
 
 ## Decisions that mattered
 
-Arcade games live or die on feel. In a climber where the only verb is a timed dash, a few frames of drift between what the player sees and when the collision registers is the difference between a fair death and a cheap one. SpriteKit gives you a scene graph and physics you can reason about directly, which matters when five people are pushing to the same repo and every one of them needs to predict what their change does to that timing.
+Arcade games live or die on feel. When the only thing a player does is time a dash, a few frames of drift between what they see and when the hit registers is the difference between a fair death and a cheap one — and cheap deaths are the reason people delete the app. SpriteKit keeps that timing somewhere you can reason about directly, which matters when five people are pushing to the same repo and each of them needs to predict what their change does to it.
 
-Using GameKit for leaderboards and achievements instead of rolling our own backend was the choice that made the deadline survivable. No server to run, no accounts to manage, no privacy surface to defend in review. On a five-person team with a month, the feature you don't have to operate is worth more than the one you control.
+Leaning on Game Center instead of building our own backend is what made the deadline survivable. No server to run, no accounts to manage, no privacy surface to defend in review. On a five-person team with a month, the feature you don't have to operate beats the one you control.
 
 ## What shipped
 

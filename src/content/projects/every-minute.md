@@ -12,7 +12,7 @@ summary: >-
 metrics:
   - Live on the App Store for Apple Vision Pro
   - Hands only — pinch, drag, rotate, and your own voice
-  - Four developers and a designer, one-week sprint
+  - Four developers and a designer, three weeks
 links:
   appStore: https://apps.apple.com/us/app/every-minute/id6789366168
 ---
@@ -25,20 +25,20 @@ That framing set the hard part. A game about coercive control cannot feel like a
 
 ## What I built
 
-I worked as one of four developers alongside a designer, on an app built around two routers and an entity-component system — the split that kept five people out of each other's way in a one-week sprint.
+I worked as one of four developers alongside a designer, over three weeks.
 
-`NavigationRouter` owns scene lifecycle — launcher window, menu space, content warning, immersive space, and the transitions between them. `ExperienceRouter` owns the story: a 17-phase state machine running from the audio intro through three puzzles, three phone calls, and a final branch that decides which ending you get. Overlays are a computed property of the current phase, so `ImmersiveView` renders whatever the phase says and contains no decision logic of its own. Adding a beat to the narrative means adding a case, not rewiring a view.
+The app keeps two things separate that most immersive projects tangle together: where you are in the app, and where you are in the story. One layer handles the scenes — menu, content warning, the immersive space itself, and the transitions between them. The other handles the narrative, which runs as a fixed sequence of beats from the audio intro through three puzzles, three phone calls, and a branch at the end that decides which ending you get. Whatever you see floating in front of you is derived from that sequence rather than decided by the view showing it, so adding a beat to the story means adding a beat, not rewiring the scene.
 
-Interaction is pure RealityKit ECS. Interactive objects are identified by marker components rather than entity names, because names in a USDZ change the moment an artist re-exports. Gestures resolve through an `.ancestor(with:)` lookup, so a pinch on a hinge finds the lid it belongs to instead of grabbing whatever mesh happened to be under your fingers. The final puzzle drops the hands entirely: `SFSpeechRecognizer` listens for you to say an address out loud into a live phone call, matched against a confidence threshold.
+The physical side is all hands. Objects announce what they are through the components attached to them rather than through their names, so the 3D artists could re-export the suitcase as often as they liked without silently breaking the code that opens it. Grabbing a hinge finds the lid it belongs to instead of whatever surface happened to be under your fingers. The last puzzle takes the hands away entirely — you have to say an address out loud, into a live call, and the app has to be sure enough it heard you.
 
 ## Decisions that mattered
 
-Naming entities is the obvious way to wire a 3D scene and the wrong one. Once the 3D artists on the team started iterating on the suitcase, string-matched logic broke silently every re-export. Marker components made the contract explicit — a `SuitcaseLidComponent` either exists on an entity or it doesn't, and the compiler is involved either way. That single rule is what let modeling and engineering run in parallel through the sprint.
+Wiring a 3D scene by object name is the obvious approach and the wrong one. Every time an artist re-exported a model, anything matched by name broke — quietly, and usually not on the machine of the person who broke it. Attaching explicit markers to objects instead meant a thing either is a suitcase lid or it isn't, and the compiler has an opinion about it. That one rule is what let modeling and engineering run in parallel for three weeks instead of taking turns.
 
-Making the overlay a pure function of narrative phase was the other one. Immersive experiences accumulate state fast — audio playing, space open, hand tracking live, a call in progress — and the usual failure is a view that quietly knows about six of those at once. Deriving the overlay from the phase meant the audio, the pause behavior, and the visible UI could never disagree about where you are in the story.
+Deriving what you see from where you are in the story was the other one. Immersive apps accumulate state fast — audio playing, hand tracking live, a call in progress, the space itself opening or closing — and the usual failure is a screen that quietly knows about six of those at once and gets one wrong. Tying it all to a single position in the narrative meant the sound, the pause behavior, and the thing in front of your face could never disagree about where you were.
 
-The visionOS budget forced its own discipline: eight dynamic lights maximum, textures under 2MB, models under 100k polygons, all to hold 60fps in a scene lit almost entirely by a single lamp. Collision shape generation is opt-in per entity for the same reason.
+Then there's the budget. A headset holding sixty frames a second gives you very little to spend, and we were lighting a room with what is essentially one lamp. Eight moving lights, total. Every texture and model sized to fit. Most of the work in an immersive scene is deciding what not to render.
 
 ## What shipped
 
-Every Minute is on the App Store for Apple Vision Pro. It runs start to finish in one unbroken immersive space — audio intro, content warning, three puzzles, a branching ending, and a closing data screen that names what the fiction was about. Five people, one week.
+Every Minute is on the App Store for Apple Vision Pro. It runs start to finish in one unbroken immersive space — audio intro, content warning, three puzzles, a branching ending, and a closing data screen that names what the fiction was about. Five people, three weeks.

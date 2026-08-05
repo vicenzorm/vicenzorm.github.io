@@ -26,7 +26,7 @@ Equillibrium turns those five numbers into two things a person can actually act 
 
 The core is a CoreML classifier that maps the five gait metrics onto the Mobility Score, trained on data a physiotherapist provided so the score reflects how a clinician actually reads those numbers rather than an arbitrary weighting I invented. Foundation Models sits on top of it, generating plain-language explanations of what a given score means day to day. App Intents and WidgetKit surface the score outside the app, where a daily number is more useful than it is behind a launch.
 
-The app is structured in MVVM-C with a protocol-bounded domain layer, so the code that reads HealthKit, the code that scores it, and the views that display it never learn each other's implementation details.
+Underneath, the part that reads your health data, the part that scores it, and the part that shows you the result know as little about each other as possible — they talk through agreed interfaces rather than reaching into each other's internals.
 
 ## Decisions that mattered
 
@@ -34,7 +34,7 @@ Nothing leaves the phone. HealthKit read, CoreML inference, Foundation Models ge
 
 The constraint paid for itself. Ruling out server-side inference forced the classifier to stay small — under 1MB, under 50ms — which is exactly what makes the daily score land in under two seconds instead of waiting on a round trip. The private version turned out to be the fast one.
 
-The protocol-bounded domain layer is what kept that workable. Because the domain only knows about interfaces and not concrete HealthKit or CoreML types, I could retrain the classifier and rework the scoring math without touching a single view.
+Keeping those layers at arm's length is what kept it workable. I retrained the model and reworked the scoring math several times over without touching a single screen.
 
 ## What shipped
 
