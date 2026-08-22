@@ -20,7 +20,7 @@ metrics:
 
 Your iPhone is already measuring how you walk. In the background, without you enabling anything, HealthKit collects step length, step asymmetry, walking steadiness, double support time, and walking speed — five clinical gait metrics that physiotherapists use to assess mobility, sitting in an app most people open twice a year.
 
-Equillibrium turns those five numbers into two things a person can actually act on: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it. Not a comparison to a population average — a comparison to you last month.
+Equillibrium turns those five numbers into two things a person can actually act on: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it. The score compares you to how you walked last month, never to a population average.
 
 ## What I built
 
@@ -32,7 +32,7 @@ Underneath, the part that reads your health data, the part that scores it, and t
 
 Nothing leaves the phone. HealthKit read, CoreML inference, Foundation Models generation — no network call anywhere in the loop. That was a constraint I set at the start, not a fallback I settled for. Gait is a physical signature; how you walk identifies you about as well as how you type, and the fewer places that travels, the better.
 
-The constraint paid for itself. Ruling out server-side inference forced the classifier to stay small — under 1MB, under 50ms — which is exactly what makes the daily score land in under two seconds instead of waiting on a round trip. The private version turned out to be the fast one.
+The constraint paid for itself. Ruling out server-side inference forced the classifier to stay small — under 1MB, under 50ms — which is what makes the daily score land in under two seconds instead of waiting on a round trip.
 
 Keeping those layers at arm's length is what kept it workable. I retrained the model and reworked the scoring math several times over without touching a single screen.
 

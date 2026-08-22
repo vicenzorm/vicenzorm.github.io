@@ -29,7 +29,7 @@ The game itself runs on SpriteKit and GameplayKit — the climb, the falling obs
 
 ## Decisions that mattered
 
-Arcade games live or die on feel. When the only thing a player does is time a dash, a few frames of drift between what they see and when the hit registers is the difference between a fair death and a cheap one — and cheap deaths are the reason people delete the app. SpriteKit keeps that timing somewhere you can reason about directly, which matters when five people are pushing to the same repo and each of them needs to predict what their change does to it.
+Arcade games live or die on feel. When the only thing a player does is time a dash, a few frames of drift between what they see and when the hit registers is the difference between a fair death and a cheap one — and a cheap death is a fast way to lose a player. SpriteKit keeps that timing somewhere you can reason about directly, which matters when five people are pushing to the same repo and each of them needs to predict what their change does to it.
 
 Leaning on Game Center instead of building our own backend is what made the deadline survivable. No server to run, no accounts to manage, no privacy surface to defend in review. On a five-person team with a month, the feature you don't have to operate beats the one you control.
 
