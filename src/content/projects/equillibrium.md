@@ -18,24 +18,24 @@ metrics:
 
 ## The problem
 
-Your iPhone is already measuring how you walk. In the background, without you enabling anything, HealthKit collects step length, step asymmetry, walking steadiness, double support time, and walking speed — five clinical gait metrics that physiotherapists use to assess mobility, sitting in an app most people open twice a year.
+Your iPhone is already measuring how you walk. In the background, without you enabling anything, HealthKit collects step length, step asymmetry, walking steadiness, double support time, and walking speed. Those five clinical gait metrics are what physiotherapists use to assess mobility, sitting in an app most people open twice a year.
 
-Equillibrium turns those five numbers into two things a person can actually act on: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it. The score compares you to how you walked last month, never to a population average.
+Equillibrium turns those five numbers into two things a person can act on: a personal baseline for how you normally walk, and a single 0–100 Mobility Score that tracks against it. The score compares you to how you walked last month, never to a population average.
 
 ## What I built
 
-The core is a CoreML classifier that maps the five gait metrics onto the Mobility Score, trained on data a physiotherapist provided so the score reflects how a clinician actually reads those numbers rather than an arbitrary weighting I invented. Foundation Models sits on top of it, generating plain-language explanations of what a given score means day to day. App Intents and WidgetKit surface the score outside the app, where a daily number is more useful than it is behind a launch.
+The core is a CoreML classifier that maps the five gait metrics onto the Mobility Score, trained on data a physiotherapist provided so the score reflects how a clinician reads those numbers rather than an arbitrary weighting I invented. Foundation Models sits on top of it, generating plain-language explanations of what a given score means day to day. App Intents and WidgetKit surface the score outside the app, where a daily number is more useful than it is behind a launch.
 
-Underneath, the part that reads your health data, the part that scores it, and the part that shows you the result know as little about each other as possible — they talk through agreed interfaces rather than reaching into each other's internals.
+Underneath, the part that reads your health data, the part that scores it, and the part that shows you the result know as little about each other as possible. They talk through agreed interfaces rather than reaching into each other's internals.
 
 ## Decisions that mattered
 
-Nothing leaves the phone. HealthKit read, CoreML inference, Foundation Models generation — no network call anywhere in the loop. That was a constraint I set at the start, not a fallback I settled for. Gait is a physical signature; how you walk identifies you about as well as how you type, and the fewer places that travels, the better.
+Nothing leaves the phone. HealthKit read, CoreML inference, and Foundation Models generation all stay on device. I set that constraint at the start. Gait is a physical signature. Your walk identifies you about as well as your typing does, so I keep that data in one place.
 
-The constraint paid for itself. Ruling out server-side inference forced the classifier to stay small — under 1MB, under 50ms — which is what makes the daily score land in under two seconds instead of waiting on a round trip.
+Ruling out server-side inference forced the classifier to stay small, under 1MB and under 50ms, which is what makes the daily score land in under two seconds instead of waiting on a round trip.
 
 Keeping those layers at arm's length is what kept it workable. I retrained the model and reworked the scoring math several times over without touching a single screen.
 
 ## What shipped
 
-A solo-built iOS app that reads real HealthKit walking data, scores it against your own history, and answers in about the time it takes to unlock your phone — without sending a byte of it anywhere. It's currently in App Store review.
+A solo-built iOS app that reads real HealthKit walking data, scores it against your own history, and answers in about the time it takes to unlock your phone, without sending a byte of it anywhere. It's currently in App Store review.
